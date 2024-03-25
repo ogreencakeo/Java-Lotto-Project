@@ -1,5 +1,6 @@
 package project;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
@@ -91,5 +92,28 @@ public class LottoAction {
         System.out.println(select);
 
         checkPrice(numbers);
+    }
+
+    // 2번 메뉴 ) 자동으로 뽑기
+    public void actoNumber(){
+        int[] autoNumbers = new int[6];
+        HashSet<Integer> tempNumbers = new HashSet<>();
+        Random random = new Random();
+    
+        while (tempNumbers.size() < 6) {
+            tempNumbers.add(random.nextInt(45) + 1);
+        }
+    
+        // HashSet의 내용을 배열로 복사
+        Integer[] autoNumberArray = tempNumbers.toArray(new Integer[tempNumbers.size()]);
+    
+        // 배열을 int 배열로 변환
+        for (int i = 0; i < autoNumbers.length; i++) {
+            autoNumbers[i] = autoNumberArray[i];
+        }
+
+        System.out.println("입력 번호 : " + Arrays.toString(autoNumbers));
+        checkPrice(autoNumbers);
+
     }
 }

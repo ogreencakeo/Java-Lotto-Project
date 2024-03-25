@@ -38,6 +38,7 @@ public class LottoUI {
                     break;
                 case "2":
                     System.out.println("> 자동으로 입력을 선택하였습니다.");
+                    action.actoNumber();
                     break;
                 case "3":
                     System.out.println("> 로또 게임을 종료합니다.");
