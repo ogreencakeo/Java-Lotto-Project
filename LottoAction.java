@@ -1,27 +1,26 @@
-package project;
-
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
-
 public class LottoAction {
 
-    // 로또 당첨금 조회
-    public void checkPrice(int[] userNumbers){
+     // 로또 당첨금 조회
+    public void checkPrice(int[] userNumbers) {
         HashSet<Integer> winningNumbers = new HashSet<>();
         Random random = new Random();
 
-        // 중복되지 않게 6개 번호 선택
+        // 중복되지 않는 6개의 당첨번호 선택
         while (winningNumbers.size() < 6) {
-            winningNumbers.add(random.nextInt(45) + 1);
+            winningNumbers.add(random.nextInt(45) + 1); // 1부터 45까지의 난수 생성하여 HashSet에 추가
         }
 
-        System.out.println("당첨 번호 : " + winningNumbers);
+        // 당첨번호 출력
+        
+        System.out.println("당첨 번호: " + winningNumbers);
 
-        // 맞춘 숫자
+        // 맞춘 숫자 개수 계산
         int matchedNumbers = 0;
-        for(int num : userNumbers){
-            if(winningNumbers.contains(num)){
+        for (int number : userNumbers) {
+            if (winningNumbers.contains(number)) {
                 matchedNumbers++;
             }
         }
@@ -53,43 +52,38 @@ public class LottoAction {
         System.out.println("---------------------------------------");
         System.out.println();
     }
-    
-    // 1번 메뉴 ) 로또 수동 입력
-    public void insertNumber(Scanner sc){
+
+    // 1번. 로또 번호 직접 입력
+    public void inputNumber(Scanner sc){
         int numbers[] = new int[6];
-        // 중복 숫자 거름
+        // 중복된 숫자 거름
         HashSet<Integer> chosenNumbers = new HashSet<>();
 
-        for(int i=0; i<numbers.length; i++){
-
-            while (true) {
-                try {
-                    System.out.println((i+1) + "번째 번호 입력 (1~45까지의 숫자를 선택하시오.)");
-                    int input = sc.nextInt();
-                    if(input < 1 || input > 45){
-                        System.out.println("잘못 입력하셨습니다. 다시 입력해주세요 ! ");
-                        System.out.println("(1~45까지의 숫자를 선택하시오.");
-                    }else if(chosenNumbers.contains(input)){
-                        System.out.println("이미 선택한 숫자입니다. 다시 입력해주세요.");
-                    }else{
-                        numbers[i] = input;
-                        chosenNumbers.add(input);
-                        break;
-                    }
-                } catch (Exception e) {
-                    // 문자 입력시 예외처리 시킴
-                    System.out.println("문자는 입력할 수 없습니다");
-                    System.out.println("(1~45까지의 숫자를 선택하시오.");
-                    sc.nextLine();
+        for(int i=0; i<6; i++){
+            while(true){
+                System.out.print((i+1) + " 번째 번호 입력 (1 ~ 45) >> ");
+                int input = sc.nextInt();
+                if(input < 1 || input >45 ){
+                    System.out.println("잘못입력하셨습니다. 다시 입력해주세요");
+                }else if(chosenNumbers.contains(input)){
+                    System.out.println("중복된 숫자입니다. 다시 입력해주세요.");
+                }else{
+                    numbers[i] = input;
+                    chosenNumbers.add(input);
+                    break;
                 }
             }
+
         }
 
         LottoDTO select = new LottoDTO(numbers[0], numbers[1], numbers[2], numbers[3], numbers[4], numbers[5]);
         System.out.println("---------------------------------------");
-        System.out.print("이번주 선택한 번호 > ");
+        System.out.println("이번주 로또 번호 당첨 결과 !!");
+
         System.out.println(select);
 
+        // 당첨금 확인
         checkPrice(numbers);
+
     }
 }
