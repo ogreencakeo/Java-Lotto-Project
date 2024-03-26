@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class LottoUI {
     public void menu(){
+        // 메뉴 설정
         String[] menus = {
             "1) 수동으로 입력",
             "2) 자동으로 입력",
